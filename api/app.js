@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var exec = require('child_process').exec;
-
+var vash = require('vash');
 
 
 var app = express();
@@ -31,7 +31,9 @@ var server = app.listen(3000, function () {
 
 
 app.get('/', function (req, res) {
-	res.send('Hello World!!!');
+	var tpl = vash.compile('<p>I am a @model.t!</p>');
+	var out = tpl({t:'template'});
+	res.send(out);
 });
 
 
