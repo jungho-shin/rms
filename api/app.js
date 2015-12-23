@@ -2,16 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var exec = require('child_process').exec;
 
-var User = require('./user');
-
-
 
 
 var app = express();
-
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
 app.use(function(req, res, next) {
 	console.log(JSON.stringify(req.body));//post params...
 	console.log(JSON.stringify(req.params));//path params...
@@ -20,10 +15,6 @@ app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Token");
 	next();
-});
-
-app.get('/', function (req, res) {
-	res.send('Hello World!!!');
 });
 
 
@@ -35,6 +26,12 @@ var server = app.listen(3000, function () {
 
 	console.log('Example app listening at http://%s:%s', host, port);
 
+});
+
+
+
+app.get('/', function (req, res) {
+	res.send('Hello World!!!');
 });
 
 
