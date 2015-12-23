@@ -45,7 +45,7 @@ app.post('/do/deploy' , function(req,res){
 	res.writeHead(200, {'Content-Type' : 'text/plain'});
 	res.end('post deploy test 02');
 	
-	exec('sudo ./../kcii_deploy.do',
+	exec('sudo ./../rms.do',
 	  function (error, stdout, stderr) {
 	    console.log('stdout: ' + stdout);
 	    console.log('stderr: ' + stderr);
