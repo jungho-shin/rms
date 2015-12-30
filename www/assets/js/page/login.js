@@ -21,5 +21,5 @@ $(document).ready(function() {
 			User.logIn($("#id").val(), $("#pw").val(), "/");
 		}
 	});
-
+	
 });

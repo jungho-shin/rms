@@ -27,30 +27,25 @@ var Request = {
 		}
 		// console.log( JSON.stringify(Request) );
 
+		/*
+		 * set page.
+		 */
+		if(!User.isLogin()) {
+			if(Request.pageName != "new_account") {
+				Request.pageName = "login";
+			}
+		}
+
+		Page.init();
+
 	}
-
-}
-
-function loadJsCssFile(filename, filetype) {
-
-	if (filetype == "js") { // if filename is an external JavaScript file
-		var fileref = document.createElement('script')
-		fileref.setAttribute("type", "text/javascript")
-		fileref.setAttribute("src", filename)
-	} else if (filetype == "css") { // if filename is an external CSS file
-		var fileref = document.createElement("link")
-		fileref.setAttribute("rel", "stylesheet")
-		fileref.setAttribute("type", "text/css")
-		fileref.setAttribute("href", filename)
-	}
-	if (typeof fileref != "undefined")
-		document.getElementsByTagName("head")[0].appendChild(fileref);
 
 }
 
 var User = {
 
 	"token" : "",
+	
 	"name" : "",
 
 	"isLogin" : function() {
@@ -106,32 +101,75 @@ var User = {
 
 		this.token = "";
 		this.name = "";
-
 		User.load();
 	}
 };
 
-$(document).ready(function() {
+var HashChange = {
 
-	/*
-	 * parse Request & init Page
-	 */
-	Request.read();
+	_oldHash : {},
+
+	_fn : {},
+
+	detect : function(func) {
+
+		this._fn = func;
+
+		$(window).on('hashchange', function() {
+			HashChange._fn();
+		});
+
+	}
+};
+
+var Page = {
+		
+	init : function(){
+		
+		// Load pageBody.
+		$("#mainarea").load("/html/" + Request.pageName + ".html", function(res) {
+			// dynamically load js file of this page
+			loadJsCssFile("/assets/js/page/" + Request.pageName + ".js", "js");
+		});
+		
+	}
+}
+
+$(document).ready(function() {
 
 	/*
 	 * load user info.
 	 */
 	User.load();
 
-	if (User.isLogin()) {
+	/*
+	 * parse Request & init page.
+	 */
+	Request.read();
 
-	} else {
-		Request.pageName = "login";
-	}
-
-	// Load pageBody.
-	$("#mainarea").load("/html/" + Request.pageName + ".html", function(res) {
-		// dynamically load js file of this page
-		loadJsCssFile("/assets/js/page/" + Request.pageName + ".js", "js");
+	HashChange.detect(function() {
+		Request.read();
 	});
+	
 });
+
+function loadJsCssFile(filename, filetype) {
+
+	if (filetype == "js") { // if filename is an external JavaScript file
+		var fileref = document.createElement('script')
+		fileref.setAttribute("type", "text/javascript")
+		fileref.setAttribute("src", filename)
+	} else if (filetype == "css") { // if filename is an external CSS file
+		var fileref = document.createElement("link")
+		fileref.setAttribute("rel", "stylesheet")
+		fileref.setAttribute("type", "text/css")
+		fileref.setAttribute("href", filename)
+	}
+	if (typeof fileref != "undefined")
+		document.getElementsByTagName("head")[0].appendChild(fileref);
+
+}
+
+function goBack() {
+	window.history.back();
+}
