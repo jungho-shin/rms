@@ -3,12 +3,13 @@
 	<div class="text-center">
 		<h2>Create an Account</h2>
 	</div>
-
+	<br>
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#individual">Individual</a></li>
+		<li><a data-toggle="tab" href="#company">Company</a></li>
+	</ul>
+	<br>
 	<form role="form">
-		<div class="form-group">
-			<label for="name">Name</label>
-			<input class="form-control" id="name" type="text">
-		</div>
 		<div class="form-group">
 			<label for="email">E-Mail Address</label>
 			<input class="form-control" id="email" type="text">
@@ -21,14 +22,37 @@
 			<label for="cpw">Confirm Password</label>
 			<input class="form-control" id="cpw" type="password">
 		</div>
-		<div class="form-group">
-			<label for="pn">Phone Number</label>
-			<input class="form-control" id="pn" type="text">
-		</div>
 	</form>
 
+	<div class="tab-content">
+		<div id="individual" class="tab-pane fade in active">
+			<div class="form-group">
+				<label for="name">Name</label>
+				<input class="form-control" id="name" type="text">
+			</div>
+			<div class="form-group">
+				<label for="pn">Phone Number</label>
+				<input class="form-control" id="pn" type="text">
+			</div>
+		</div>
+		<div id="company" class="tab-pane fade">
+			<div class="form-group">
+				<label for="company-registration-number">Company Registration Number</label>
+				<input class="form-control" id="company-registration-number" type="text">
+			</div>
+			<div class="form-group">
+				<label for="company-name">Company Name</label>
+				<input class="form-control" id="company-name" type="text">
+			</div>
+			<div class="form-group">
+				<label for="manager-name">Manager Name</label>
+				<input class="form-control" id="manager-name" type="text">
+			</div>
+		</div>
+	</div>
+	
 	<div class="text-center mt20">
-		<button type="submit" id="create" class="btn btn-lg btn-primary">Create</button>
-		<button type="submit" id="cancel" class="btn btn-lg btn-default">Cancel</button>
+		<button type="button" id="create" class="btn btn-lg btn-primary">Create</button>
+		<button type="button" id="cancel" class="btn btn-lg btn-default">Cancel</button>
 	</div>
 </div>
