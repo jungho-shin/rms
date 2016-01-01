@@ -293,6 +293,137 @@ var Api = {
     }
 };
 
+var Popup = {
+		
+	POPUP_ID_PREFIX : "popupwin", 
+	POPUP_CLASS : "popupwin",
+	DEFAULT_WIDTH: "",
+	DEFAULT_HEIGHT: "",
+	
+	instance : [], //{id, width, height, top, left, autoClose }
+	
+    open : function( contents, opt){
+        
+        if( Popup.instance.length != $("." + Popup.POPUP_CLASS).length ){
+            //fadein/out 등이 일어나고 있는 동안은 새로 생성하지 말고 잠깐 대기 
+            setTimeout(function(){
+                Popup.open(contents,opt);    
+            }, 500);
+            
+        } else {
+            //open!
+            return Popup._open(contents, opt);   
+        }
+        
+    },
+    
+	_open : function( contents , opt ){
+        
+        var newId = Popup.POPUP_ID_PREFIX  + Popup.instance.length;
+		Popup.instance.push({ "id" : newId });
+		
+		
+		//{ width, height, top. left, autoClose:false, btnClose:true, buttons: [ { text, fn },{ text, fn },{ text, fn }...  ]}
+		var defaultOpt = { width : "", height : "", top : "", left : "", autoClose : false, btnClose:true , buttons : [] , title : "" }
+		opt = $.extend(defaultOpt, opt);
+		
+		var closeBtn = "";
+		if(opt.btnClose) closeBtn = "<div class='close'>×</div>";
+		
+		
+		//make btn html
+		var buttonsHtml = "";
+		var arrBtns = [];
+		if(opt.buttons.length > 0){
+			for( var i=0; i<opt.buttons.length ; i++){
+				arrBtns.push( "<button class='btn" + i +"'>" + opt.buttons[i].text + "</button>" )
+			}
+			buttonsHtml ="<div class='buttonGroup'>" + arrBtns.join("") + "</div>";
+		}
+		
+		//append html
+		$("body").append(
+			"<div class='"+ Popup.POPUP_CLASS +"-background' id='" + newId + "-background'></div>" + 
+			"<div class='" + Popup.POPUP_CLASS + "' id='" + newId + "' >" +
+				"<div class='title'>" + opt.title +  
+				closeBtn + 
+				"</div>" + 
+				"<div class='content'>" + contents + "</div>" + 
+				buttonsHtml + 
+			"</div>"
+		);
+		
+		
+		var $popup = $("#" + newId);
+		var $popupBackground = $("#" + newId + "-background");
+		
+		
+		//bind btn events
+		if(opt.buttons.length > 0){
+			for( var i=0; i<opt.buttons.length ; i++){
+				$popup.find(".btn"+i).on("click", opt.buttons[i].fn );
+			}
+		}
+		
+		
+		if( opt.width ){
+			$popup.css("width", opt.width);
+		} else if(Popup.DEFAULT_WIDTH) {
+			$popup.css("width", Popup.DEFAULT_WIDTH);
+		} 
+		
+		if( opt.height ){
+			$popup.css("height", opt.height);
+		}
+		if( opt.autoClose ){
+			setTimeout(function(){
+				Popup.close(newId);
+			}, opt.autoClose );
+		}
+		if(opt.btnClose){
+			$popup.find(".close").on("click", function(){
+				var id = $(this).parents("." + Popup.POPUP_CLASS ).first().attr("id");
+				Popup.close(id);
+			});
+		}
+		
+		
+		var top = ( $(window).height() - $popup.outerHeight() ) / 2;
+		var left = ( $(window).width() - $popup.outerWidth() ) / 2;
+		$popup.css("top", top + "px" ).css("left", left);
+		
+		return newId;
+		
+	},
+	
+	close : function(id){
+		
+		for ( var i = 0; i < Popup.instance.length; i++) {
+			if(Popup.instance[i].id == id){
+				$("#"+id).fadeOut( function(){ $(this).remove() } );
+				$("#"+id+"-background").fadeOut( function(){ $(this).remove() } );
+				
+				Popup.instance.splice(i,1);
+			}
+		}
+		
+	},
+	
+	alert : function(text, onClickEvent) {
+		var opt = {};
+		opt.btnClose = false;
+		opt.buttons = [{text : "확인", fn : function(){
+			var id =  $(this).parents("." + Popup.POPUP_CLASS).first().attr("id");
+			Popup.close(id);
+			onClickEvent();
+		}}];
+		
+		var popupId = Popup.open(
+			text, opt
+		);
+	}
+}
+
 $(document).ready(function() {
 
 	/*
