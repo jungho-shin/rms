@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	loadJsCssFile("/assets/css/page/" + "login" + ".css", "css");
 
-	$("#id").on("keypress", function(e) {
+	$("#email-address").on("keypress", function(e) {
 		if (e.keyCode == 13)
 			$("#logIn").trigger("click");
 	});
@@ -13,12 +13,12 @@ $(document).ready(function() {
 	});
 
 	$("#logIn").on("click", function() {
-		if ($("#id").val().trim().isEmpty()) {
-			$("#id").focus();
+		if ($("#email-address").val().trim().isEmpty()) {
+			$("#email-address").focus();
 		} else if ($("#pw").val().trim().isEmpty()) {
 			$("#pw").focus();
 		} else {
-			User.logIn($("#id").val(), $("#pw").val(), "/");
+			User.logIn($("#email-address").val(), $("#pw").val(), "/");
 		}
 	});
 	
