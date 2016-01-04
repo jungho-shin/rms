@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var exec = require('child_process').exec;
 var vash = require('vash');
 
+var User = require('./user');
 
 var app = express();
 app.use(bodyParser.json()); // for parsing application/json
@@ -34,6 +35,13 @@ app.get('/', function (req, res) {
 	var tpl = vash.compile('<p>I am a @model.t!</p>');
 	var out = tpl({t:'template'});
 	res.send(out);
+});
+
+/*
+ * user
+ */
+app.post('/users', function(req, res){
+	User.create(req, res);
 });
 
 
