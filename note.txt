@@ -1,0 +1,13 @@
+Install Guide.
+
+1. Install nodejs
+	$sudo apt-get install nginx
+	
+2. Install dependencies
+	$npm install
+	
+3. Run the app.
+	1) On MacOS or Linux
+		$DEBUG=rms:* npm start
+	2) On Windows
+		$set DEBUG=myapp:* && npm start
