@@ -1,9 +1,0 @@
-Please enter your E-mail Address. : 이메일 주소를 입력해주세요.
-AAA : 비밀번호는 8자 이상 16자 이하로 기재해 주십시오.
-Passwords do not match. : 비밀번호가 서로 다릅니다.
-Please enter your name : 이름(실명)을 기재해 주십시오.
-Please enter your phone number : 휴대전화 번호를 입력해주십시오. /n 휴대전화 번호는 인증수단으로 사용됩니다.
-Please enter Company Registration Number : 사업자 등록번호를 정확히 기재해 주십시오.
-Please enter company name : 기업명을 기재해 주십시오.
-Please enter manager name : 담당자명(한글)을 정확히 기재해 주십시오.
-Congratulations on the Register : 회원가입을 축하드립니다.
