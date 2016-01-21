@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container              
+    h1 Say something meaningful here.
+    p.lead Say something worthwhile here.
+    a(href="/") Go home
+    br
+    a(href="/ping") Ping
+    br
+    br
+    if (!user)
+      a(href="/login") Login
+      br
+      a(href="/register") Register
+    if (user)
+      p You are currently logged in as #{user.username}
+      a(href="/logout") Logout
+
+  script(src='http://code.jquery.com/jquery.js')
+  script(src='javascripts/bootstrap.min.js')
+  

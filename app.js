@@ -3,13 +3,19 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var register = require('./routes/register');
+var login = require('./routes/login');
+var logout = require('./routes/logout');
+var ping = require('./routes/ping');
 
-var passport = require('passport')
-, LocalStrategy = require('passport-local').Strategy;
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
@@ -22,11 +28,27 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('your secret here'));
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/register', register);
+app.use('/login', login);
+app.use('/logout', logout);
+app.use('/ping', ping);
+
+//passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+//mongoose
+mongoose.connect('mongodb://localhost/passport_local_mongoose');
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,19 +81,4 @@ app.use(function(err, req, res, next) {
   });
 });
 
-passport.use(new LocalStrategy({
-    usernameField : 'userid',
-    passwordField : 'password',
-    passReqToCallback : true
-}
-,function(req,userid, password, done) {
-    if(userid=='hello' && password=='world'){
-        var user = { 'userid':'hello',
-                      'email':'hello@world.com'};
-        return done(null,user);
-    }else{
-        return done(null,false);
-    }
-}
-));
 module.exports = app;
