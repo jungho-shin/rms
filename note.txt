@@ -1,5 +1,8 @@
-Install Guide.
+# RMS(Reservation Management System)
 
+##Features
+
+##Install
 1. Install nodejs
 	$sudo apt-get install nginx
 	
