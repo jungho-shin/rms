@@ -12,7 +12,7 @@ var register = require('./routes/register');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 var ping = require('./routes/ping');
-//var deploy = require('./routes/deploy'); test14
+//var deploy = require('./routes/deploy'); test15
 var exec = require('child_process').exec;
 
 var mongoose = require('mongoose');
@@ -66,14 +66,14 @@ app.post('/deploy' , function(req,res){
 	res.writeHead(200, {'Content-Type' : 'text/plain'});
 	res.end('post deploy test 02');
 	
-	exec('sudo ./rms.do',
-	  function (error, stdout, stderr) {
-	    logger.log('stdout: ' + stdout);
-	    logger.log('stderr: ' + stderr);
-	    if (error !== null) {
-	      logger.log('exec error: ' + error);
-	    }
-	});	
+//	exec('sudo ./rms.do',
+//	  function (error, stdout, stderr) {
+//	    logger.log('stdout: ' + stdout);
+//	    logger.log('stderr: ' + stderr);
+//	    if (error !== null) {
+//	      logger.log('exec error: ' + error);
+//	    }
+//	});	
 });
 
 
