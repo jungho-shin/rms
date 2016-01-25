@@ -9,8 +9,7 @@ var logger = require('tracer')[conf.log.strategy](conf.log.setting.log);
 
 router.post('/', function(req, res){
 	console.log("POST /do/deploy");
-	res.writeHead(200, {'Content-Type' : 'text/plain'});
-	res.end('post deploy test 02');
+	res.send("deploy!", 200);
 	
 	exec('sudo ./../rms.do',
 	  function (error, stdout, stderr) {
