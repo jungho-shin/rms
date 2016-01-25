@@ -50,8 +50,6 @@ app.use('/ping', ping);
  */
 app.post('/deploy' , function(req,res){
 	logger.log("POST /do/deploy");
-	res.writeHead(200, {'Content-Type' : 'text/plain'});
-	res.end('post deploy test 02');
 	
 	exec('sudo ./rms.do',
 	  function (error, stdout, stderr) {
@@ -61,6 +59,8 @@ app.post('/deploy' , function(req,res){
 	      logger.log('exec error: ' + error);
 	    }
 	});	
+	res.writeHead(200, {'Content-Type' : 'text/plain'});
+	res.end('post deploy test 02');
 });
 
 
