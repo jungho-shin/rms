@@ -12,7 +12,7 @@ var register = require('./routes/register');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 var ping = require('./routes/ping');
-//var deploy = require('./routes/deploy'); test12
+//var deploy = require('./routes/deploy'); test13
 var exec = require('child_process').exec;
 
 var mongoose = require('mongoose');
@@ -35,6 +35,18 @@ app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true}
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(function(req, res, next) {
+	
+	logger.log(JSON.stringify(req.body));//post params...
+	logger.log(JSON.stringify(req.params));//path params...
+	logger.log(JSON.stringify(req.query));//query params...
+	
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Token");
+	next();
+});
+
 
 app.use('/', routes);
 app.use('/users', users);
