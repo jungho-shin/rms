@@ -12,7 +12,7 @@ var register = require('./routes/register');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 var ping = require('./routes/ping');
-//var deploy = require('./routes/deploy'); test09
+//var deploy = require('./routes/deploy'); test10
 var exec = require('child_process').exec;
 
 var mongoose = require('mongoose');
