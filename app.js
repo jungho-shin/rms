@@ -12,7 +12,7 @@ var register = require('./routes/register');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
 var ping = require('./routes/ping');
-var deploy = require('./routes/deploy');
+//var deploy = require('./routes/deploy');
 
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -41,7 +41,28 @@ app.use('/register', register);
 app.use('/login', login);
 app.use('/logout', logout);
 app.use('/ping', ping);
-app.use('/deploy', deploy);
+//app.use('/deploy', deploy);
+
+
+/*
+ * Deploy
+ * 
+ */
+app.post('/deploy' , function(req,res){
+	logger.log("POST /do/deploy");
+	res.writeHead(200, {'Content-Type' : 'text/plain'});
+	res.end('post deploy test 02');
+	
+	exec('sudo ./rms.do',
+	  function (error, stdout, stderr) {
+	    logger.log('stdout: ' + stdout);
+	    logger.log('stderr: ' + stderr);
+	    if (error !== null) {
+	      logger.log('exec error: ' + error);
+	    }
+	});	
+});
+
 
 //passport config
 var Account = require('./models/account');
