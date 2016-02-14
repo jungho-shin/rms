@@ -1,0 +1,45 @@
+extends layout
+
+block nav
+  include ./navbar.jade
+
+block content
+  .container
+    div
+      input.AXButton(type='button', value='추가', onclick='fnObj.addTree();')
+      input.AXButton(type='button', value='자식추가', onclick='fnObj.addChildTree();')
+      input.AXButton(type='button', value='선택삭제', onclick='fnObj.delTree();')
+      input.AXButton(type='button', value='수정')
+      
+      input.AXButton(type='button', value='위로')
+      input.AXButton(type='button', value='아래로')
+      input.AXButton(type='button', value='이동하기')
+
+    div.
+    div#AXTreeTarget(style='height:400px;')
+      
+    div(style='display:none;')
+      div#modalContent(style='padding:10px')
+        form(name='treeWriteForm', method='post', onsubmit='return false;')
+          div(style='padding:5px')
+            input(type='hidden', name='writeMode', value='')
+            table
+              tr
+                td 이름
+                td
+                  input.AXInput.W200(type='text', name='nodeName', value='')
+          div(style='padding:5px;', align='center')
+            input.AXButton(type='button', value='확인', onclick='fnObj._appendTree();')
+            input.AXButton(type='button', value='취소', onclick='myModal.close("addTreeModal");')
+            
+  link(rel='stylesheet', href='/axist/ui/arongi/AXJ.min.css')
+  link(rel='stylesheet', href='http://cdno.axisj.com/axicon/axicon.min.css')
+  link(rel='stylesheet', href='/axist/ui/arongi/AXGridTree.css')
+  
+  script(src='/axist/dist/AXJ.min.js')
+  
+  script(src='/axist/lib/AXGrid.js')
+  script(src='/axist/lib/AXGridTree.js')
+
+  script(src='/javascripts/page/menus.js')
+  

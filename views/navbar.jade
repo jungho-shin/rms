@@ -1,0 +1,54 @@
+nav.navbar.navbar-inverse
+  div.container-fluid
+    div.navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='#myNavbar')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='#') RMS
+    div.collapse.navbar-collapse(id='myNavbar')
+      ul.nav.navbar-nav
+        li.active
+          a(href='#') Home
+        li
+          a(href='#about') About
+        
+        
+        - for ( var i = 0; i < menus.length; i++) {
+          - if(menus[i].sub_menus.length > 0) {
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')= menus[i].menu_name
+                span.caret
+              ul.dropdown-menu
+                - for ( var j = 0; j < menus[i].sub_menus.length; j++) {
+                  li
+                    a(href='/view/menus/list')= menus[i].sub_menus[j].menu_name
+                - }
+          - } else {
+            li
+              a(href='#')= menus[i].menu_name
+          - }
+        - }
+
+        if (user && user.userlevel == "root")
+          li
+            a.dropdown-toggle(data-toggle='dropdown', href='#') Setting
+              span.caret
+            ul.dropdown-menu
+              li
+                a(href='/view/menus/list') Menu
+      ul.nav.navbar-nav.navbar-right
+        if (!user)
+          li
+            a(href='/view/register')
+              span.glyphicon.glyphicon-user
+              |  Sign Up
+          li
+            a(href='view/login')
+              span.glyphicon.glyphicon-log-in
+              |  Login
+        if (user)
+          li
+            a(href='/model/logout')
+              span.glyphicon.glyphicon-log-out
+              |  Logout

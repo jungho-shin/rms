@@ -6,11 +6,19 @@ var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 
+var model = require('./routes/model');
+var model_register = require('./routes/model/register');
+var model_login = require('./routes/model/login');
+var model_logout = require('./routes/model/logout');
+var model_menus = require('./routes/model/menus');
+
+var view = require('./routes/view');
+var view_register = require('./routes/view/register');
+var view_login = require('./routes/view/login');
+var view_menu = require('./routes/view/menus');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var register = require('./routes/register');
-var login = require('./routes/login');
-var logout = require('./routes/logout');
 var ping = require('./routes/ping');
 var deploy = require('./routes/deploy');
 
@@ -35,11 +43,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/model', model);
+app.use('/model/register', model_register);
+app.use('/model/login', model_login);
+app.use('/model/logout', model_logout);
+app.use('/model/menus', model_menus);
+
+app.use('/view', view);
+app.use('/view/register', view_register);
+app.use('/view/login', view_login);
+app.use('/view/menus', view_menu);
+
 app.use('/', routes);
 app.use('/users', users);
-app.use('/register', register);
-app.use('/login', login);
-app.use('/logout', logout);
 app.use('/ping', ping);
 app.use('/deploy', deploy);
 
@@ -84,4 +100,3 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
-// deploy test3.

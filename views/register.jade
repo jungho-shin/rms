@@ -5,18 +5,19 @@ block content
     h1 Register Page
     p.lead Say something worthwhile here. 
     br
-    form(role='form', action="/register",method="post", style='max-width: 300px;')
+    form(role='form', action="/model/register",method="post", style='max-width: 300px;')
       .form-group
           input.form-control(type='text', name="username", placeholder='Enter Username')
       .form-group
         input.form-control(type='password', name="password", placeholder='Password')
+      .form-group
+        input.form-control(type='text', name="userlevel", placeholder='Enter Userlevel')
       button.btn.btn-default(type='submit') Submit
       &nbsp;
-      a(href='/')
+      a(href='/view')
         button.btn.btn-primary(type="button") Cancel
     br
     h4= info
     
   script(src='http://code.jquery.com/jquery.js')
-  script(src='javascripts/bootstrap.min.js')
     
