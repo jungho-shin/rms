@@ -101,8 +101,8 @@ var User = {
 
 var Api = {
 	
-	"apiPath" : "http://localhost:3000",
-	"apiJsonPPath" : "http://localhost:3000/jsonp",
+	"apiPath" : "http://52.192.224.104:3000",
+	"apiJsonPPath" : "http://52.192.224.104:3000/jsonp",
 	
 	"guestToken" : "c72697466effd0db4ac78592b40c323607bguest",
 	
