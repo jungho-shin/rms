@@ -11,11 +11,13 @@ var model_register = require('./routes/model/register');
 var model_login = require('./routes/model/login');
 var model_logout = require('./routes/model/logout');
 var model_menus = require('./routes/model/menus');
+var model_systems =  require('./routes/model/systems');
 
 var view = require('./routes/view');
 var view_register = require('./routes/view/register');
 var view_login = require('./routes/view/login');
 var view_menu = require('./routes/view/menus');
+var view_system = require('./routes/view/systems')
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -48,11 +50,13 @@ app.use('/model/register', model_register);
 app.use('/model/login', model_login);
 app.use('/model/logout', model_logout);
 app.use('/model/menus', model_menus);
+app.use('/model/systems', model_systems);
 
 app.use('/view', view);
 app.use('/view/register', view_register);
 app.use('/view/login', view_login);
 app.use('/view/menus', view_menu);
+app.use('/view/systems', view_system);
 
 app.use('/', routes);
 app.use('/users', users);

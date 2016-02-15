@@ -103,7 +103,8 @@ var fnObj = {
 			
 			var data = {menu_name:frm.nodeName.value, pid:pid};
 			Api.post("/model/menus", data, function(res) {
-				fnObj.appendTree(res.menu);
+//				fnObj.appendTree(res.menu);
+				location.reload();
 			});
 			
 		}else if(writeMode == "append"){
@@ -117,7 +118,8 @@ var fnObj = {
 			
 			var data = {menu_name:frm.nodeName.value, pid:pid};
 			Api.post("/model/menus", data, function(res) {
-				fnObj.appendTree(res.menu);
+//				fnObj.appendTree(res.menu);
+				location.reload();
 			});
 			
 		}else if(writeMode == "modify"){
@@ -190,7 +192,8 @@ var fnObj = {
 		}
 		Api.del("/model/menus/" + obj.item._id, {}, function(res) {
 			console.log(">>>>> delete success");
-			myTree.removeTree(obj.index, obj.item);
+//			myTree.removeTree(obj.index, obj.item);
+			location.reload();
 		});
 	},
 };
